@@ -1,0 +1,100 @@
+{
+  "globalOptions": {
+    "background": "#333333",
+    "colladaLoader": "collada2",
+    "fixedFrame": "/map"
+  },
+  "viewerOptions": {
+    "camera": {
+      "position": {
+        "x": 12,
+        "y": 2.5,
+        "z": 5.1
+      }
+    },
+    "cameraControls": {
+      "center": {
+        "x": 2,
+        "y": 2.5,
+        "z": 0
+      }
+    },
+    "directionalLight": {
+      "position": {
+        "x": 2,
+        "y": 2,
+        "z": 3
+      }
+    }
+  },
+  "sidebarOpened": false,
+  "displays": [
+    {
+      "isShown": true,
+      "name": "Grid",
+      "options": {
+        "cellSize": "1",
+        "color": "#eeeeee",
+        "numCells": "50"
+      },
+      "type": "grid"
+    },
+    {
+      "isShown": true,
+      "name": "Robot model",
+      "options": {
+        "param": "robot_description",
+        "tfPrefix": ""
+      },
+      "type": "urdf"
+    },
+    {
+      "isShown": true,
+      "name": "Kitchen model",
+      "options": {
+        "param": "kitchen_description",
+        "tfPrefix": "iai_kitchen"
+      },
+      "type": "urdf"
+    },
+    {
+      "isShown": true,
+      "name": "Kitchen Objects",
+      "options": {
+        "topic": "/visualization_marker"
+      },
+      "type": "markers"
+    },
+    {
+      "isShown": true,
+      "name": "cram_location_marker",
+      "options": {
+        "topic": "/cram_location_marker"
+      },
+      "type": "markers"
+    },
+    {
+      "isShown": true,
+      "name": "cram_location_costmap",
+      "options": {
+        "topic": "/cram_location_costmap"
+      },
+      "type": "markerArray"
+    },
+    {
+      "isShown": true,
+      "name": "cram_location_occupancy_grid",
+      "options": {
+        "color": {
+          "r": 255,
+          "g": 255,
+          "b": 255
+        },
+        "continuous": true,
+        "opacity": "1",
+        "topic": "/cram_location_occupancy_grid"
+      },
+      "type": "occupancyGrid"
+    }
+  ]
+}
