@@ -38,6 +38,9 @@ const envObj = computed(() => {
 })
 
 const composedUrl = computed(() => {
+  if (props.item.environment.length === 0) {
+    return props.item.run_url
+  }
   let env = selectedEnv && selectedEnv.value ? `&coaienv=${selectedEnv.value}` : ''
   let rob = selectedRob && selectedRob.value ? `&coairob=${selectedRob.value}` : ''
   let task = selectedTask && selectedTask.value ? `&coaitask=${selectedTask.value}` : ''

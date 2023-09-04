@@ -2,11 +2,11 @@ FROM intel4coro/intel4coro:jupyterhub-ros-base-0.5
 
 # Default ROS workspace
 ENV ROS_WS=${HOME}/workspace/ros
-ENV REPO_DIR=${HOME}/cram_teaching
+ENV REPO_DIR=${HOME}/COAI
 ARG CRAM_ROSINSTALL_FILE="https://raw.githubusercontent.com/cram2/cram/devel/cram-20.04-http.rosinstall"
 
 # Copy git repository to image
-COPY --chown=${NB_USER}:users . ${REPO_DIR}
+COPY --chown=${NB_USER}:users ./notebook/. ${REPO_DIR}
 COPY --chown=${NB_USER}:users ./binder ${HOME}/.binder
 
 USER ${NB_USER}
@@ -19,7 +19,7 @@ RUN wstool merge ${CRAM_ROSINSTALL_FILE} && \
 RUN catkin_create_pkg jupyter && \
     cd jupyter && \
     wstool init && \
-    wstool merge ${REPO_DIR}/jupyter/common-lisp-jupyter.rosinstall && \
+    wstool merge ${HOME}/.binder/common-lisp-jupyter.rosinstall && \
     wstool update && \
     rm -rf */.git
 # Install PyKDL
@@ -39,13 +39,16 @@ RUN cd ${ROS_WS}/src/cram/cram_demos/cram_projection_demos/resource/household &&
     sed -i '3d' bowl.obj cup.obj
 
 # Intall CommonLisp kernel.
-RUN source /home/${NB_USER}/workspace/ros/devel/setup.bash && \
-    /usr/bin/sbcl --load ${REPO_DIR}/jupyter/sbcl-jupyter-kernel-installer.lisp
+RUN source ${ROS_WS}/devel/setup.bash && \
+    /usr/bin/sbcl --load ${HOME}/.binder/sbcl-jupyter-kernel-installer.lisp
 
 # Precompile and cache LISP code for demo notebooks
 RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.binder/pre-compile.lisp
 RUN jupyter lab workspaces import ${HOME}/.binder/workspace.json
-RUN git config --global --add safe.directory ${REPO_DIR}
+
+# Compress texture files
+RUN /opt/conda/bin/python ${HOME}/.binder/compress_textures.py --img_path=${ROS_WS}/src/iai_maps/iai_apartment/meshes/ --max_size=512
+
 
 WORKDIR ${REPO_DIR}/
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
