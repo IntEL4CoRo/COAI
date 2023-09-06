@@ -18,7 +18,7 @@ for node in $nodes; do
 done
 
 # Launch new rosnodes
-REPO_CONFIG_PATH=${REPO_DIR}/binder
+REPO_CONFIG_PATH=${HOME}/.binder
 roslaunch ${REPO_CONFIG_PATH}/update_scene.launch  \
           launch_file:=${@} \
           config_path:=${REPO_CONFIG_PATH} &

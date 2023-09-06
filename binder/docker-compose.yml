@@ -1,0 +1,26 @@
+version: '3'
+services:
+  cram-binder:
+    image: coai:binderhub
+    # build:
+    #   context: ../
+    #   dockerfile: ./binder/Dockerfile
+    stdin_open: true
+    tty: true
+    privileged: true
+    user: root
+    working_dir: /home/jovyan
+    entrypoint: /home/jovyan/.binder/entrypoint.sh
+    command: jupyter lab --allow-root --NotebookApp.token='' --no-browser
+    ports:
+      - 8888:8888
+    # environment:
+    #   - DISPLAY
+      # - QT_X11_NO_MITSHM=1
+    volumes:
+      # Need to change the ownership of the directory 
+      # to make it editable in side the container by running command:
+      # sudo chown -R ${USER}:100 ./
+      - ../notebooks:/home/jovyan/COAI
+      - ../binder:/home/jovyan/.binder
+      # - /tmp/.X11-unix:/tmp/.X11-unix:rw

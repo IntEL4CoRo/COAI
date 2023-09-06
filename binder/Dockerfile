@@ -6,7 +6,7 @@ ENV REPO_DIR=${HOME}/COAI
 ARG CRAM_ROSINSTALL_FILE="https://raw.githubusercontent.com/cram2/cram/devel/cram-20.04-http.rosinstall"
 
 # Copy git repository to image
-COPY --chown=${NB_USER}:users ./notebook/. ${REPO_DIR}
+COPY --chown=${NB_USER}:users ./notebooks/. ${REPO_DIR}/notebooks
 COPY --chown=${NB_USER}:users ./binder ${HOME}/.binder
 
 USER ${NB_USER}
@@ -44,7 +44,7 @@ RUN source ${ROS_WS}/devel/setup.bash && \
 
 # Precompile and cache LISP code for demo notebooks
 RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.binder/pre-compile.lisp
-RUN jupyter lab workspaces import ${HOME}/.binder/workspace.json
+# RUN jupyter lab workspaces import ${HOME}/.binder/workspace.json
 
 # Compress texture files
 RUN /opt/conda/bin/python ${HOME}/.binder/compress_textures.py --img_path=${ROS_WS}/src/iai_maps/iai_apartment/meshes/ --max_size=512
@@ -54,3 +54,5 @@ WORKDIR ${REPO_DIR}/
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
 # Do not start the juptyerlab server in the entrypoint script, it should be launched by the binderhub.
 ENTRYPOINT ["/home/jovyan/.binder/entrypoint.sh"]
+
+COPY --chown=${NB_USER}:users ./binder/app.json ${ROS_WS}/rvizweb/webapps/app.json
