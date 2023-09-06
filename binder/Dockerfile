@@ -6,7 +6,7 @@ ENV REPO_DIR=${HOME}/COAI
 ARG CRAM_ROSINSTALL_FILE="https://raw.githubusercontent.com/cram2/cram/devel/cram-20.04-http.rosinstall"
 
 # Copy git repository to image
-COPY --chown=${NB_USER}:users ./notebooks/. ${REPO_DIR}/notebooks
+COPY --chown=${NB_USER}:users . ${REPO_DIR}/
 COPY --chown=${NB_USER}:users ./binder ${HOME}/.binder
 
 USER ${NB_USER}
@@ -48,7 +48,6 @@ RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.
 
 # Compress texture files
 RUN /opt/conda/bin/python ${HOME}/.binder/compress_textures.py --img_path=${ROS_WS}/src/iai_maps/iai_apartment/meshes/ --max_size=512
-
 
 WORKDIR ${REPO_DIR}/
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
