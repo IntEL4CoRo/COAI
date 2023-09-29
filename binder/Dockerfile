@@ -52,6 +52,5 @@ RUN /opt/conda/bin/python ${HOME}/.binder/compress_textures.py --img_path=${ROS_
 WORKDIR ${REPO_DIR}/
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
 # Do not start the juptyerlab server in the entrypoint script, it should be launched by the binderhub.
+COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/app.json
 ENTRYPOINT ["/home/jovyan/.binder/entrypoint.sh"]
-
-COPY --chown=${NB_USER}:users ./binder/app.json ${ROS_WS}/rvizweb/webapps/app.json
