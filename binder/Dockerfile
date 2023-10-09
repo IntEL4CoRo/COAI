@@ -1,4 +1,4 @@
-FROM intel4coro/base-notebook:20.04-noetic-full-xpra
+FROM intel4coro/base-notebook:20.04-noetic-base
 
 # Default ROS workspace
 ENV ROS_WS=${HOME}/workspace/ros
@@ -53,3 +53,6 @@ WORKDIR ${REPO_DIR}/
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
 # Do not start the juptyerlab server in the entrypoint script, it should be launched by the binderhub.
 ENTRYPOINT ["/home/jovyan/.binder/entrypoint.sh"]
+
+COPY --chown=${NB_USER}:users ./binder/app.json ${ROS_WS}/rvizweb/webapps/app.json
+RUN pip install https://raw.githubusercontent.com/yxzhan/jupyterlab-rviz/master/dist/jupyterlab_rviz-0.3.1.tar.gz
