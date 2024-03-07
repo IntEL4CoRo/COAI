@@ -16,7 +16,7 @@ services:
     ports:
       - 8888:8888
     environment:
-      - DISPLAY
+      # - DISPLAY
       - QT_X11_NO_MITSHM=1
     volumes:
       # Need to change the ownership of the directory 
