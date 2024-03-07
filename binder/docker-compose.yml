@@ -10,7 +10,7 @@ services:
     privileged: true
     user: "jovyan:${GID}"
     # user: root
-    # working_dir: /home/jovyan
+    working_dir: /home/jovyan
     entrypoint: /home/jovyan/.binder/entrypoint.sh
     command: jupyter lab --allow-root --NotebookApp.token='' --no-browser
     ports:

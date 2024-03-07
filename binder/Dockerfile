@@ -56,6 +56,9 @@ COPY --chown=${NB_USER}:users binder/jupyter-settings.json /opt/conda/share/jupy
 COPY --chown=${NB_USER}:users binder/* ${HOME}/.binder/
 ENTRYPOINT ["/home/jovyan/.binder/entrypoint.sh"]
 
+# Create a symbolic link to the ROS workspace under the working directory
+RUN ln -s ${ROS_WS} ${PWD}/ROS_WS
+
 # The new base image has a new UI for the run code Button
 # Uninstall the new UI and install the old one for Michael
 RUN pip uninstall -y jupyterlab_examples_cell_toolbar
