@@ -103,3 +103,6 @@
     local-name: shasht
     uri: https://github.com/yitzchak/shasht.git
 
+- git:
+    local-name: nontrivial-gray-streams
+    uri: https://github.com/yitzchak/nontrivial-gray-streams.git
