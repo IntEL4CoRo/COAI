@@ -46,13 +46,14 @@ RUN source ${ROS_WS}/devel/setup.bash && \
 # Precompile and cache LISP code for demo notebooks
 RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.binder/pre-compile.lisp
 
-WORKDIR ${REPO_DIR}/
 # Copy git repository to image
 COPY --chown=${NB_USER}:users . ${REPO_DIR}/
-COPY --chown=${NB_USER}:users ./binder/app.json ${ROS_WS}/rvizweb/webapps/app.json
+WORKDIR ${REPO_DIR}/
+COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/rvizweb/webapps/app.json
 COPY --chown=${NB_USER}:users binder/jupyter-settings.json /opt/conda/share/jupyter/lab/settings/overrides.json
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
 # Do not start the juptyerlab server in the entrypoint script, it should be launched by the binderhub.
+COPY --chown=${NB_USER}:users ./binder/entrypoint.sh ${HOME}/.binder/entrypoint.sh
 ENTRYPOINT ["/home/jovyan/.binder/entrypoint.sh"]
 
 # The new base image has a new UI for the run code Button

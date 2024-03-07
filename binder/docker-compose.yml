@@ -22,6 +22,6 @@ services:
       # Need to change the ownership of the directory 
       # to make it editable in side the container by running command:
       # sudo chown -R ${USER}:100 ./
-      - ../notebooks:/home/jovyan/COAI:rw
+      - ../:/home/jovyan/COAI:rw
       - ../binder:/home/jovyan/.binder:rw
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
