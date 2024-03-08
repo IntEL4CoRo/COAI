@@ -15,10 +15,12 @@ The dependencies of the common-lisp kernel:
 
 ### Test Image Locally (Under repo directory)
 
-- Build and run docker image:
+- Build and run docker image (The `chmod` command is to make the current directory writable inside the jupyterlab):
 
   ```bash
-  export export GID=$(id -g) && docker compose -f ./binder/docker-compose.yml up --build
+  chmod -R g+w ./ && \
+  export GID=$(id -g) && \
+  docker compose -f ./binder/docker-compose.yml up --build
   ```
 
   or
@@ -26,7 +28,8 @@ The dependencies of the common-lisp kernel:
   Build and run with X-forwarding (The pybullet debug window open as a desktop display):
 
   ```bash
-  export export GID=$(id -g) && \
+  chmod -R g+w ./ && \
+  export GID=$(id -g) && \
   xhost +local:docker && \
   docker compose -f ./binder/docker-compose.yml up --build && \
   xhost -local:docker

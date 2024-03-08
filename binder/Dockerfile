@@ -44,6 +44,11 @@ RUN source ${ROS_WS}/devel/setup.bash && \
 # Precompile and cache LISP code for demo notebooks
 RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.binder/pre-compile.lisp
 
+# The new base image has a new UI for the run code Button
+# Uninstall the new UI and install the old one for Michael
+RUN pip uninstall -y jupyterlab_examples_cell_toolbar
+RUN pip install https://raw.githubusercontent.com/yxzhan/jlab-enhanced-cell-toolbar/main/dist/jlab-enhanced-cell-toolbar-4.0.0.tar.gz 
+
 # Copy git repository to image
 COPY --chown=${NB_USER}:users . ${REPO_DIR}/
 WORKDIR ${REPO_DIR}/
@@ -56,8 +61,5 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 # Create a symbolic link to the ROS workspace under the working directory
 RUN ln -s ${ROS_WS} ${PWD}/ROS_WS
+RUN rm -rf ${HOME}/.binder && ln -s ${REPO_DIR}/binder ${HOME}/.binder
 
-# The new base image has a new UI for the run code Button
-# Uninstall the new UI and install the old one for Michael
-RUN pip uninstall -y jupyterlab_examples_cell_toolbar
-RUN pip install https://raw.githubusercontent.com/yxzhan/jlab-enhanced-cell-toolbar/main/dist/jlab-enhanced-cell-toolbar-4.0.0.tar.gz 
