@@ -7,7 +7,8 @@ ENV REPO_DIR=${HOME}/COAI
 ARG CRAM_ROSINSTALL_FILE="https://raw.githubusercontent.com/cram2/cram/devel/cram-20.04-http.rosinstall"
 
 RUN mkdir ${HOME}/.binder
-COPY --chown=${NB_USER}:users ./binder ${HOME}/.binder/
+COPY --chown=${NB_USER}:users ./binder/*.rosinstall ${HOME}/.binder/
+COPY --chown=${NB_USER}:users ./binder/*.lisp ${HOME}/.binder/
 
 USER ${NB_USER}
 WORKDIR ${ROS_WS}/src
@@ -50,7 +51,8 @@ COPY --chown=${NB_USER}:users binder/webapps.json ${ROS_WS}/src/rvizweb/webapps/
 COPY --chown=${NB_USER}:users binder/jupyter-settings.json /opt/conda/share/jupyter/lab/settings/overrides.json
 # Overwrite the entrypoint, and it has to end with `exec "$@"`.
 # Do not start the juptyerlab server in the entrypoint script, it should be launched by the binderhub.
-ENTRYPOINT ["/home/jovyan/.binder/entrypoint.sh"]
+COPY --chown=${NB_USER}:users binder/entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
 
 # Create a symbolic link to the ROS workspace under the working directory
 RUN ln -s ${ROS_WS} ${PWD}/ROS_WS

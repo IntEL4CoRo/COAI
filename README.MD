@@ -18,7 +18,7 @@ The dependencies of the common-lisp kernel:
 - Build and run docker image:
 
   ```bash
-  docker compose -f ./binder/docker-compose.yml up --build
+  export export GID=$(id -g) && docker compose -f ./binder/docker-compose.yml up --build
   ```
 
   or
@@ -26,6 +26,7 @@ The dependencies of the common-lisp kernel:
   Build and run with X-forwarding (The pybullet debug window open as a desktop display):
 
   ```bash
+  export export GID=$(id -g) && \
   xhost +local:docker && \
   docker compose -f ./binder/docker-compose.yml up --build && \
   xhost -local:docker
