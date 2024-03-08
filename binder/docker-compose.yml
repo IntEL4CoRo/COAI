@@ -17,8 +17,8 @@ services:
     ports:
       - 8888:8888
     environment:
-      - DISPLAY
+      # - DISPLAY
       - QT_X11_NO_MITSHM=1
     volumes:
       - ../:/home/jovyan/COAI:rw
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # - /tmp/.X11-unix:/tmp/.X11-unix:rw

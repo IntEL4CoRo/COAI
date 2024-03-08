@@ -3,7 +3,8 @@
 Research Lab for Household Transportation tasks.
 
 Binderhub Address:
-[![Binder](https://binder.intel4coro.de/badge_logo.svg)](https://binder.intel4coro.de/v2/gh/IntEL4CoRo/COAI/dev?urlpath=lab%2Ftree%2Fnotebooks%2Fhousehold_pr2_setting_table.ipynb)
+- PR2 retail: https://binder.intel4coro.de/v2/gh/IntEL4CoRo/COAI/retail?urlpath=lab%2Ftree%2Fnotebooks%2Fretail_pr2.ipynb
+- Donbot retail: https://binder.intel4coro.de/v2/gh/IntEL4CoRo/COAI/retail?urlpath=lab%2Ftree%2Fnotebooks%2Fretail_donbot.ipynb
 
 ## Development
 
