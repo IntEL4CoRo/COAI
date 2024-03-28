@@ -9,13 +9,15 @@
     "name": "rvizweb",
     "title": "Rvizweb",
     "url": "proxy/8001/rvizweb/webapps/rvizweb/build/www/index.html",
-    "mode": "split-right"
+    "mode": "split-right",
+    "start": true
   },
   {
     "name": "rosgraph",
     "title": "Ros Graph",
     "url": "proxy/8001/rvizweb/webapps/ros-node-graph/build/index.html",
-    "mode": "split-left"
+    "mode": "split-left",
+    "start": true
   },
   {
     "name": "rosboard",
