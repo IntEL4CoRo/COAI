@@ -12,7 +12,7 @@ COPY --chown=${NB_USER}:users ./binder/*.lisp ${HOME}/.binder/
 
 USER ${NB_USER}
 WORKDIR ${ROS_WS}/src
-# Install CRAM && Delete .git folder to reduce image size.
+# Install CRAM
 RUN wstool merge ${CRAM_ROSINSTALL_FILE} && \
     wstool update
 # Install CommonLisp kernel. 
@@ -63,3 +63,5 @@ ENTRYPOINT ["/entrypoint.sh"]
 RUN ln -s ${ROS_WS} ${PWD}/ROS_WS
 RUN rm -rf ${HOME}/.binder && ln -s ${REPO_DIR}/binder ${HOME}/.binder
 
+# keep rvizweb up to date
+RUN cd ${ROS_WS}/src/rvizweb && git pull
