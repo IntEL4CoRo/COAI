@@ -1,33 +1,22 @@
 [
   {
-    "name": "XPRA",
-    "title": "Xpra Desktop",
-    "icon": "proxy/8001/rvizweb/webapps/xpra-logo.svg",
-    "url": "xprahtml5/index.html"
-  },
-  {
-    "name": "rvizweb",
-    "title": "Rvizweb",
-    "url": "proxy/8001/rvizweb/webapps/rvizweb/build/www/index.html",
-    "mode": "split-right",
-    "start": true
-  },
-  {
-    "name": "rosgraph",
-    "title": "Ros Graph",
-    "url": "proxy/8001/rvizweb/webapps/ros-node-graph/build/index.html",
+    "name": "textbook",
+    "title": "AICOR Textbook",
+    "url": "https://iris.informatik.uni-bremen.de/textbook",
     "mode": "split-left",
     "start": true
   },
   {
-    "name": "rosboard",
-    "title": "ROSBoard",
-    "url": "proxy/18888/index.html"
+    "name": "chatbot",
+    "title": "Textbook Chatbot",
+    "url": "proxy/3000",
+    "mode": "split-right",
+    "start": true
   },
   {
-    "name": "webviz",
-    "title": "Webviz",
-    "icon": "proxy/8001/rvizweb/webapps/webviz/icon.svg",
-    "url": "proxy/8001/rvizweb/webapps/webviz/index.html"
+    "name": "XPRA",
+    "title": "Xpra Desktop",
+    "icon": "proxy/8001/rvizweb/webapps/xpra-logo.svg",
+    "url": "xprahtml5/index.html"
   }
 ]

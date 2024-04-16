@@ -49,6 +49,12 @@ RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.
 RUN pip uninstall -y jupyterlab_examples_cell_toolbar
 RUN pip install https://raw.githubusercontent.com/yxzhan/jlab-enhanced-cell-toolbar/main/dist/jlab-enhanced-cell-toolbar-4.0.0.tar.gz 
 
+# Install the LlamaIndex app
+WORKDIR ${HOME}
+RUN git clone https://github.com/yxzhan/llamaindex-app.git && \
+    cd llamaindex-app/textbook-chat && \
+    npm install
+
 # Copy git repository to image
 COPY --chown=${NB_USER}:users . ${REPO_DIR}/
 WORKDIR ${REPO_DIR}/
@@ -65,3 +71,5 @@ RUN rm -rf ${HOME}/.binder && ln -s ${REPO_DIR}/binder ${HOME}/.binder
 
 # keep rvizweb up to date
 RUN cd ${ROS_WS}/src/rvizweb && git pull
+
+WORKDIR ${HOME}/llamaindex-app/textbook-chat

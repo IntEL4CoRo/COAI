@@ -7,6 +7,7 @@ roslaunch --wait rvizweb rvizweb.launch &
 
 jupyter lab workspaces import  ${REPO_DIR}/binder/jupyterlab-workspace.json
 
+npm run dev &
 # # Use xvfb virtual display when there is no display connected.
 # if [ -n "$DISPLAY" ] && [ "$DISPLAY" != ":100" ]; then
 #     exec "$@"
