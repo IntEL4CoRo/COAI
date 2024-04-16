@@ -53,7 +53,8 @@ RUN pip install https://raw.githubusercontent.com/yxzhan/jlab-enhanced-cell-tool
 WORKDIR ${HOME}
 RUN git clone https://github.com/yxzhan/llamaindex-app.git && \
     cd llamaindex-app/textbook-chat && \
-    npm install
+    npm install && \
+    npm run build
 
 # Copy git repository to image
 COPY --chown=${NB_USER}:users . ${REPO_DIR}/
@@ -73,3 +74,5 @@ RUN rm -rf ${HOME}/.binder && ln -s ${REPO_DIR}/binder ${HOME}/.binder
 RUN cd ${ROS_WS}/src/rvizweb && git pull
 
 WORKDIR ${HOME}/llamaindex-app/textbook-chat
+ENV AZURE_OPENAI_KEY=**********
+ENV AZURE_OPENAI_ENDPOINT=http://192.168.240.1:5002
