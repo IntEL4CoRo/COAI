@@ -68,10 +68,9 @@ RUN cd ${ROS_WS}/src/rvizweb && git pull
 
 # Install the LlamaIndex app
 WORKDIR ${HOME}
-RUN git clone https://github.com/yxzhan/llamaindex-app.git && \
-    cd llamaindex-app/textbook-chat && \
-    npm install && \
-    npm run build
+RUN git clone https://github.com/yxzhan/llamaindex-app.git
 WORKDIR ${HOME}/llamaindex-app/textbook-chat
+RUN npm install && \
+    npm run build
 ENV AZURE_OPENAI_KEY=**********
 ENV AZURE_OPENAI_ENDPOINT=http://192.168.240.1:5002
