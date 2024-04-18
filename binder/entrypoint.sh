@@ -8,8 +8,9 @@ roslaunch --wait rvizweb rvizweb.launch &
 # jupyter lab workspaces import  ${REPO_DIR}/binder/jupyterlab-workspace.json
 
 # Start the LLAMAINDEX server
-npm run dev &
-# npm run start &
+npm run build &
+# npm run dev &
+npm run start &
 
 # # Use xvfb virtual display when there is no display connected.
 # if [ -n "$DISPLAY" ] && [ "$DISPLAY" != ":100" ]; then
