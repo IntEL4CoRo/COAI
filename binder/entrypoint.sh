@@ -9,10 +9,10 @@ roslaunch --wait rvizweb rvizweb.launch &
 
 # Start the LLAMAINDEX server
 cd ${HOME}/llamaindex-app/textbook-chat
-# npm run dev &
+npm run dev &
 
-npm run build &
-npm run start &
+# npm run build &
+# npm run start &
 
 # # Use xvfb virtual display when there is no display connected.
 # if [ -n "$DISPLAY" ] && [ "$DISPLAY" != ":100" ]; then
