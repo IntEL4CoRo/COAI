@@ -9,6 +9,7 @@ roslaunch --wait rvizweb rvizweb.launch &
 
 # Start the LLAMAINDEX server
 cd ${HOME}/llamaindex-app/textbook-chat
+git pull
 npm run dev &
 
 # npm run build &
@@ -18,5 +19,5 @@ npm run dev &
 # if [ -n "$DISPLAY" ] && [ "$DISPLAY" != ":100" ]; then
 #     exec "$@"
 # else
-xvfb-run exec "$@"
+exec "$@"
 # fi
