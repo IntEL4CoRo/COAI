@@ -55,8 +55,6 @@ RUN git clone https://github.com/yxzhan/llamaindex-app.git
 WORKDIR ${HOME}/llamaindex-app/textbook-chat
 RUN npm install && \
     npm run build
-ENV AZURE_OPENAI_KEY=**********
-ENV AZURE_OPENAI_ENDPOINT=http://192.168.240.1:5002
 
 # Copy git repository to image
 COPY --chown=${NB_USER}:users . ${REPO_DIR}/

@@ -11,14 +11,22 @@ services:
     # set group id of the host machine, so we can edit contents of the mounted volumes in the jupyterlab
     user: "jovyan:${GID}"
     # user: root
-    # working_dir: /home/jovyan
+    working_dir: /home/jovyan
     entrypoint: /home/jovyan/COAI/binder/entrypoint.sh
     command: jupyter lab --allow-root --NotebookApp.token='' --no-browser
+    # network_mode: "host"
     ports:
-      - 8888:8888
+      - "8888:8888"
+      - "8000:3000"
+    extra_hosts:
+      - host.docker.internal:host-gateway
     environment:
       - DISPLAY
       - QT_X11_NO_MITSHM=1
+      - OPENAI_API_KEY==**********
+      - OPENAI_API_BASE=http://host.docker.internal:11435/v1
+      - AZURE_OPENAI_KEY=**********
+      - AZURE_OPENAI_ENDPOINT=http://host.docker.internal:11435/v1
     volumes:
       - ../:/home/jovyan/COAI:rw
       # - /tmp/.X11-unix:/tmp/.X11-unix:rw
