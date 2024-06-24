@@ -15,13 +15,13 @@ services:
     command: jupyter lab --allow-root --NotebookApp.token='' --no-browser
     ports:
       - 8888:8888
-    environment:
+    # environment:
       # - DISPLAY
-      - QT_X11_NO_MITSHM=1
+      # - QT_X11_NO_MITSHM=1
     volumes:
       # Need to change the ownership of the directory 
       # to make it editable in side the container by running command:
       # sudo chown -R ${USER}:100 ./
       - ../:/home/jovyan/COAI:rw
       - ../binder:/home/jovyan/.binder:rw
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      # - /tmp/.X11-unix:/tmp/.X11-unix:rw
