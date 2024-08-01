@@ -1,5 +1,5 @@
 # FROM intel4coro/intel4coro:jupyterhub-ros-base-0.5
-FROM intel4coro/base-notebook:20.04-noetic
+FROM intel4coro/base-notebook:20.04-noetic-vnc
 
 # Default ROS workspace
 ENV ROS_WS=${HOME}/workspace/ros
@@ -27,7 +27,7 @@ RUN git clone https://github.com/orocos/orocos_kinematics_dynamics.git orocos_ki
     cd orocos_kinematics_dynamics && git submodule update --init
 # Install dependencies and build workspace
 USER root
-RUN rosdep update && \
+RUN apt update && rosdep update && \
     rosdep install -y --ignore-src --from-paths ./ -r && \
     rosdep fix-permissions
 USER ${NB_USER}
