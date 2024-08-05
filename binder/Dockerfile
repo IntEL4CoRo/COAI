@@ -25,6 +25,27 @@ RUN catkin_create_pkg jupyter && \
 WORKDIR ${ROS_WS}/src
 RUN git clone https://github.com/orocos/orocos_kinematics_dynamics.git orocos_kinematics_dynamics -b v1.5.1 && \
     cd orocos_kinematics_dynamics && git submodule update --init
+
+# Replace the iai_maps/iai_apartment with the Multiverse-World/iai_apartment with textures
+RUN git clone https://github.com/Multiverse-Framework/Multiverse-World.git /tmp/Multiverse-World && \
+    rm -rf ${ROS_WS}/src/iai_maps/iai_apartment/meshes && \
+    mv /tmp/Multiverse-World/iai_apartment/meshes ${ROS_WS}/src/iai_maps/iai_apartment/ && \
+    rm -rf ${ROS_WS}/src/iai_maps/iai_apartment/urdf && \
+    mv /tmp/Multiverse-World/iai_apartment/urdf ${ROS_WS}/src/iai_maps/iai_apartment/ && \
+    rm -rf /tmp/Multiverse-World
+
+COPY --chown=${NB_USER}:users notebooks/apartment-demo.lisp ${ROS_WS}/src/cram/cram_demos/cram_projection_demos/src/
+
+# RUN git clone https://github.com/code-iai/iai_maps.git -b apartment-owl-new-mesh /tmp/iai_maps && \
+#     rm -rf ${ROS_WS}/src/iai_maps/iai_apartment/meshes && \
+#     mv /tmp/iai_maps/iai_apartment/meshes ${ROS_WS}/src/iai_maps/iai_apartment/ && \
+#     rm -rf /tmp/iai_maps
+
+# RUN git clone https://github.com/Multiverse-Framework/Multiverse-World.git /tmp/Multiverse-World && \
+#     rm -rf ${ROS_WS}/src/iai_maps/iai_apartment && \
+#     mv /tmp/Multiverse-World/iai_apartment ${ROS_WS}/src/iai_maps/ && \
+#     rm -rf /tmp/Multiverse-World
+
 # Install dependencies and build workspace
 USER root
 RUN apt update && rosdep update && \
@@ -48,6 +69,7 @@ RUN source ${ROS_WS}/devel/setup.bash && xvfb-run /usr/bin/sbcl --load ${HOME}/.
 # Uninstall the new UI and install the old one for Michael
 RUN pip uninstall -y jupyterlab_examples_cell_toolbar
 RUN pip install https://raw.githubusercontent.com/yxzhan/jlab-enhanced-cell-toolbar/main/dist/jlab-enhanced-cell-toolbar-4.0.0.tar.gz 
+RUN pip install git+https://github.com/yxzhan/jupyterlab-urdf.git@dev
 
 # Copy git repository to image
 COPY --chown=${NB_USER}:users . ${REPO_DIR}/
